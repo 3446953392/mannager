@@ -41,6 +41,16 @@ export const constantRoutes = [
       meta: { title: '活动列表', icon: 'table' }
     }]
   },
+  {
+    path: '/yichenglist',
+    component: Layout,
+    children: [{
+      path: 'yichenglist',
+      name: 'List',
+      component: () => import('@/views/table/list'),
+      meta: { title: '议程列表', icon: 'list' }
+    }]
+  },
 
   // {
   //   path: '/example',
@@ -73,6 +83,18 @@ export const constantRoutes = [
         name: '添加活动',
         component: () => import('@/views/form/index'),
         meta: { title: '添加活动', icon: 'form' }
+      }
+    ]
+  },
+  {
+    path: '/yicheng',
+    component: Layout,
+    children: [
+      {
+        path: 'yicheng',
+        name: '添加议程',
+        component: () => import('@/views/form/yicheng'),
+        meta: { title: '添加议程', icon: 'edit' }
       }
     ]
   },

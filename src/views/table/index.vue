@@ -18,7 +18,7 @@
           {{ scope.row.title }}
         </template>
       </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
+      <el-table-column label="地点" width="310" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.author }}</span>
         </template>
@@ -28,11 +28,11 @@
           {{ scope.row.pageviews }}
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
-        </template>
-      </el-table-column>
+      <!-- <el-table-column class-name="status-col" label="Status" width="110" align="center"> -->
+      <!--   <template slot-scope="scope"> -->
+      <!--     <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag> -->
+      <!--   </template> -->
+      <!-- </el-table-column> -->
       <el-table-column align="center" prop="created_at" label="活动时间" width="200">
         <template slot-scope="scope">
           <i class="el-icon-time" />
@@ -65,26 +65,15 @@
           <el-time-picker v-model="form.date2" type="fixed-time" placeholder="Pick a time" style="width: 100%;" />
         </el-col>
       </el-form-item>
-      <!-- <el-form-item label="Instant delivery"> -->
-      <!--   <el-switch v-model="form.delivery" /> -->
-      <!-- </el-form-item> -->
-      <!-- <el-form-item label="Activity type"> -->
-      <!--   <el-checkbox-group v-model="form.type"> -->
-      <!--     <el-checkbox label="Online activities" name="type" /> -->
-      <!--     <el-checkbox label="Promotion activities" name="type" /> -->
-      <!--     <el-checkbox label="Offline activities" name="type" /> -->
-      <!--     <el-checkbox label="Simple brand exposure" name="type" /> -->
-      <!--   </el-checkbox-group> -->
-      <!-- </el-form-item> -->
-      <!-- <el-form-item label="Resources"> -->
-      <!--   <el-radio-group v-model="form.resource"> -->
-      <!--     <el-radio label="Sponsor" /> -->
-      <!--     <el-radio label="Venue" /> -->
-      <!--   </el-radio-group> -->
-      <!-- </el-form-item> -->
       <el-form-item label="活动内容">
-        <el-input v-model="form.desc" type="textarea" />
+        <div class="components-container">
+    <div>
+      <tinymce v-model="content" :height="300" />
+    </div>
+    <div class="editor-content" v-html="content" />
+  </div>
       </el-form-item>
+
       <el-form-item>
         <el-button type="primary" @click="onSubmit">更新</el-button>
         <el-button @click="onCancel">取消</el-button>
@@ -97,8 +86,10 @@
 
 <script>
 import { getList } from '@/api/table'
+import Tinymce from '@/components/Tinymce'
 
 export default {
+  components: { Tinymce },
   filters: {
     statusFilter(status) {
       const statusMap = {
@@ -122,7 +113,6 @@ export default {
         // delivery: false,
         // type: [],
         resource: '',
-        // 活动内容
         desc: ''
       }
     }
